@@ -1,10 +1,12 @@
 package st10068305.api;
 
 public class User {
-    private final String firstName;
-    private final String lastName;
-    private final String username;
-    private final String password;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
+
+    public User() {}
 
     public User(
             String firstName,
