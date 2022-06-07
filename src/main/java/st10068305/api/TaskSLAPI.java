@@ -1,6 +1,7 @@
 package st10068305.api;
 
 import org.yaml.snakeyaml.Yaml;
+import st10068305.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,9 @@ import java.util.HashMap;
  * This class will save and load users from a yaml file using <a href="https://stackabuse.com/reading-and-writing-yaml-files-in-java-with-snakeyaml">SnakeYaml</a>.
  */
 public class TaskSLAPI {
+    private static final Main main = Main.getInstance();
+    private static final TaskManager taskManager = main.getTaskManager();
+
     /**
      * This function takes in the tasks HashMap and converts it to the
      * required data for saving to a yaml file.
@@ -78,14 +82,12 @@ public class TaskSLAPI {
             HashMap<String, Object> singleHashMap = allHashMap.get(key);
 
             String taskName = (String) singleHashMap.get("taskName");
-            int taskNumber = (int) singleHashMap.get("taskNumber");
             String taskDescription = (String) singleHashMap.get("taskDescription");
             String developerDetails = (String) singleHashMap.get("developerDetails");
             int taskDuration = (int) singleHashMap.get("taskDuration");
-            String taskId = (String) singleHashMap.get("taskId");
             String taskStatus = (String) singleHashMap.get("taskStatus");
 
-            Task task = new Task(taskName, taskNumber, taskDescription, developerDetails, taskDuration, taskId, taskStatus);
+            Task task = new Task(taskName, taskManager.generateTaskNumber(), taskDescription, developerDetails, taskDuration, taskStatus);
 
             tasksHashMap.put(key, task);
         }

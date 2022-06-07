@@ -5,9 +5,7 @@ import java.util.HashMap;
 public class TaskManager {
     private HashMap<String, Task> tasks = new HashMap<>();
     private int maximumTasks = 0;
-
-    public TaskManager() {
-    }
+    private int tasksCount = 0;
 
     public void setMaximumTasks(int maximumTasks) {
         this.maximumTasks = maximumTasks;
@@ -35,10 +33,15 @@ public class TaskManager {
 
     public void addTask(Task task) {
         this.tasks.put(task.getTaskId(), task);
+        this.tasksCount++;
     }
 
     public HashMap<String, Task> getTasks() {
         return this.tasks;
+    }
+
+    public int generateTaskNumber() {
+        return tasks.size();
     }
 
     public Task getTask(String taskId) {
