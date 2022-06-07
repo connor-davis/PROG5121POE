@@ -9,10 +9,8 @@ import st10068305.screens.Screen;
 import st10068305.util.Messages;
 import st10068305.util.TextToAscii;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.util.Scanner;
-
-import static java.lang.System.in;
 
 public class LoginScreen extends Screen {
     private final Main main = Main.getInstance();
@@ -26,57 +24,44 @@ public class LoginScreen extends Screen {
 
     @Override
     public void message() {
-        System.out.println("\n");
 
-        TextToAscii textToAscii = new TextToAscii(100, 50, 2);
-        BufferedImage bufferedImage = textToAscii.draw("Login");
-
-        textToAscii.show(bufferedImage);
     }
 
     @Override
     public void prompt() {
         String username;
 
-        try (Scanner scanner = new Scanner(in)) {
-            username = promptUserName(scanner);
+        username = promptUserName();
 
-            /*
-              Here we find the stored user.
-             */
-            User user = userManager.getUser(username);
+        /*
+          Here we find the stored user.
+         */
+        User user = userManager.getUser(username);
 
-            /*
-              If the user is not stored then we request for
-              the user to be registered.
-             */
-            if (user == null) {
-                System.out.println(Messages.USERNAME_INCORRECT);
+        /*
+          If the user is not stored then we request for
+          the user to be registered.
+         */
+        if (user == null) {
+            System.out.println(Messages.USERNAME_INCORRECT);
 
-                prompt();
-            } else {
-                promptPassword(scanner, user);
-            }
+            prompt();
+        } else {
+            promptPassword(user);
         }
     }
 
-    private String promptUserName(Scanner scanner) {
-        System.out.println("\nPlease enter your username:");
-        System.out.print("> ");
-
-        return scanner.nextLine();
+    private String promptUserName() {
+        return JOptionPane.showInputDialog(null, "Please enter your username.", "Authentication", JOptionPane.QUESTION_MESSAGE);
     }
 
-    private void promptPassword(Scanner scanner, User user) {
+    private void promptPassword(User user) {
         String password;
 
-        System.out.println("\nPlease enter your password:");
-        System.out.print("> ");
-
-        password = scanner.nextLine();
+        password = JOptionPane.showInputDialog(null, "Please enter your password.", "Authentication", JOptionPane.QUESTION_MESSAGE);
 
         if (!Authentication.loginUser(user, password)) {
-            promptPassword(scanner, user);
+            promptPassword(user);
         } else {
             userManager.setCurrentUser(user);
 

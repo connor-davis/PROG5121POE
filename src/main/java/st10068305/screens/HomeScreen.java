@@ -2,14 +2,14 @@ package st10068305.screens;
 
 import st10068305.Main;
 import st10068305.api.UserManager;
+import st10068305.screens.tasks.AddTasksScreen;
 import st10068305.util.Messages;
-import st10068305.util.TextToAscii;
+import st10068305.util.Table;
 
-import java.awt.image.BufferedImage;
-import java.util.Scanner;
+import javax.swing.*;
+import java.util.ArrayList;
 
-import static st10068305.util.Commands.LOGOUT_COMMAND;
-import static st10068305.util.Commands.QUIT_COMMAND;
+import static st10068305.util.Commands.*;
 
 public class HomeScreen extends Screen {
     private final Main main = Main.getInstance();
@@ -23,56 +23,43 @@ public class HomeScreen extends Screen {
 
     @Override
     public void message() {
-        System.out.println("\n");
-
-        TextToAscii textToAscii = new TextToAscii(100, 50, 2);
-        BufferedImage bufferedImage = textToAscii.draw("Home");
-
-        textToAscii.show(bufferedImage);
+        JOptionPane.showMessageDialog(null, "Welcome to EasyKanban", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
 
         String welcomeMessage = Messages.LOGGED_IN_SUCCESSFULLY;
 
         welcomeMessage = welcomeMessage.replace("<user first name>", userManager.getCurrentUser().getFirstName());
         welcomeMessage = welcomeMessage.replace("<user last name>", userManager.getCurrentUser().getLastName());
 
-        System.out.println(welcomeMessage);
+        JOptionPane.showMessageDialog(null, welcomeMessage, "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void prompt() {
-        System.out.println("\nWould you like to ["
-                + LOGOUT_COMMAND
-                + "|"
-                + QUIT_COMMAND
-                + "]:");
-        System.out.print("> ");
-
         getCommand();
     }
 
     @Override
     public void getCommand() {
-        String command;
+        int command;
+        Object[] commands = new Object[]{ADD_TASKS_COMMAND, SHOW_REPORT_COMMAND, QUIT_COMMAND};
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            command = scanner.nextLine();
+        command = JOptionPane.showOptionDialog(null, "Welcome to EasyKanban", "Welcome", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, commands, commands[0]);
 
-            switch (command) {
-                case LOGOUT_COMMAND:
-                    userManager.setCurrentUser(null);
-                    WelcomeScreen welcomeScreen = new WelcomeScreen();
-                    welcomeScreen.display();
+        switch (command) {
+            case 0:
+                AddTasksScreen addTasksScreen = new AddTasksScreen();
+                addTasksScreen.display();
 
-                    break;
-                case QUIT_COMMAND:
-                    scanner.close();
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Coming Soon", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
 
-                    break;
-                default:
-                    prompt();
+                getCommand();
 
-                    break;
-            }
+                break;
+            default:
+                break;
         }
     }
+
 }

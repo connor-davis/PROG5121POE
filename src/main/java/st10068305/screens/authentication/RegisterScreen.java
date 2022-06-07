@@ -9,6 +9,7 @@ import st10068305.screens.Screen;
 import st10068305.util.Messages;
 import st10068305.util.TextToAscii;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
@@ -26,73 +27,59 @@ public class RegisterScreen extends Screen {
 
     @Override
     public void message() {
-        System.out.println("\n");
 
-        TextToAscii textToAscii = new TextToAscii(100, 50, 2);
-        BufferedImage bufferedImage = textToAscii.draw("Register");
-
-        textToAscii.show(bufferedImage);
     }
 
     @Override
     public void prompt() {
         String firstName, lastName, username, password;
 
-        try (Scanner scanner = new Scanner(in)) {
-            firstName = promptFirstName(scanner);
-            lastName = promptLastName(scanner);
-            username = promptUserName(scanner);
-            password = promptPassword(scanner);
+        firstName = promptFirstName();
+        lastName = promptLastName();
+        username = promptUserName();
+        password = promptPassword();
 
-            String registerStatus = Authentication.registerUser(username, password);
+        String registerStatus = Authentication.registerUser(username, password);
 
-            if (registerStatus.equals(Messages.REGISTERED_SUCCESSFULLY)) {
-                User user = new User(firstName, lastName, username, password);
+        if (registerStatus.equals(Messages.REGISTERED_SUCCESSFULLY)) {
+            User user = new User(firstName, lastName, username, password);
 
-                userManager.addUser(user);
+            userManager.addUser(user);
 
-                String welcomeMessage = Messages.REGISTERED_SUCCESSFULLY;
+            String welcomeMessage = Messages.REGISTERED_SUCCESSFULLY;
 
-                welcomeMessage = welcomeMessage.replace("<user first name>", user.getFirstName());
-                welcomeMessage = welcomeMessage.replace("<user last name>", user.getLastName());
+            welcomeMessage = welcomeMessage.replace("<user first name>", user.getFirstName());
+            welcomeMessage = welcomeMessage.replace("<user last name>", user.getLastName());
 
-                System.out.println(welcomeMessage);
+            System.out.println(welcomeMessage);
 
-                LoginScreen loginScreen = new LoginScreen();
+            LoginScreen loginScreen = new LoginScreen();
 
-                loginScreen.display();
-            } else {
-                System.out.println(registerStatus);
+            loginScreen.display();
+        } else {
+            System.out.println(registerStatus);
 
-                prompt();
-            }
+            prompt();
         }
+
     }
 
     /**
      * This function prompts the user for their first name.
      *
-     * @param scanner The scanner class.
      * @return String
      */
-    private String promptFirstName(Scanner scanner) {
-        System.out.println("\nPlease enter your first name:");
-        System.out.print("> ");
-
-        return scanner.nextLine();
+    private String promptFirstName() {
+        return JOptionPane.showInputDialog(null, "Please enter your first name", "Registration", JOptionPane.QUESTION_MESSAGE);
     }
 
     /**
      * This function prompts the user for their last name.
      *
-     * @param scanner The scanner class.
      * @return String
      */
-    private String promptLastName(Scanner scanner) {
-        System.out.println("\nPlease enter your last name:");
-        System.out.print("> ");
-
-        return scanner.nextLine();
+    private String promptLastName() {
+        return JOptionPane.showInputDialog(null, "Please enter your last name", "Registration", JOptionPane.QUESTION_MESSAGE);
     }
 
     /**
@@ -100,23 +87,19 @@ public class RegisterScreen extends Screen {
      * and it checks that the username is correctly
      * formatted.
      *
-     * @param scanner The scanner class.
      * @return String
      */
-    private String promptUserName(Scanner scanner) {
+    private String promptUserName() {
         String username;
 
-        System.out.println("\nPlease enter your username:");
-        System.out.print("> ");
-
-        username = scanner.nextLine();
+        username = JOptionPane.showInputDialog(null, "Please enter your username", "Registration", JOptionPane.QUESTION_MESSAGE);
 
         AuthenticationResponse userNameCheck = Authentication.checkUserName(username);
 
         if (!userNameCheck.hasPassed()) {
             System.out.println(userNameCheck.getMessage());
 
-            username = promptUserName(scanner);
+            username = promptUserName();
         }
 
         return username;
@@ -126,23 +109,19 @@ public class RegisterScreen extends Screen {
      * This function prompts the user for their password,
      * and it checks that the password is complex enough.
      *
-     * @param scanner The scanner class.
      * @return String
      */
-    private String promptPassword(Scanner scanner) {
+    private String promptPassword() {
         String password;
 
-        System.out.println("\nPlease enter your password:");
-        System.out.print("> ");
-
-        password = scanner.nextLine();
+        password = JOptionPane.showInputDialog(null, "Please enter your password", "Registration", JOptionPane.QUESTION_MESSAGE);
 
         AuthenticationResponse complexityCheck = Authentication.checkPasswordComplexity(password);
 
         if (!complexityCheck.hasPassed()) {
             System.out.println(complexityCheck.getMessage());
 
-            password = promptPassword(scanner);
+            password = promptPassword();
         }
 
         return password;
