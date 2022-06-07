@@ -45,6 +45,7 @@ public class TaskSLAPI {
             singleHashMap.put("developerDetails", tasks.get(key).getDeveloperDetails());
             singleHashMap.put("taskDuration", tasks.get(key).getTaskDuration());
             singleHashMap.put("taskId", tasks.get(key).getTaskId());
+            singleHashMap.put("taskStatus", tasks.get(key).getTaskStatus());
 
             allHashMap.put(key, singleHashMap);
         }
@@ -82,8 +83,9 @@ public class TaskSLAPI {
             String developerDetails = (String) singleHashMap.get("developerDetails");
             int taskDuration = (int) singleHashMap.get("taskDuration");
             String taskId = (String) singleHashMap.get("taskId");
+            String taskStatus = (String) singleHashMap.get("taskStatus");
 
-            Task task = new Task(taskName, taskNumber, taskDescription, developerDetails, taskDuration, taskId);
+            Task task = new Task(taskName, taskNumber, taskDescription, developerDetails, taskDuration, taskId, taskStatus);
 
             tasksHashMap.put(key, task);
         }

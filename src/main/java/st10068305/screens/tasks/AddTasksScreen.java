@@ -28,7 +28,7 @@ public class AddTasksScreen extends Screen {
     @Override
     public void prompt() {
         try {
-            taskManager.setMaximumTasks(Integer.parseInt(JOptionPane.showInputDialog(null, "How many tasks would you like to add?", "EasyKanban", JOptionPane.QUESTION_MESSAGE)));
+            taskManager.setMaximumTasks(taskManager.getTasks().size() + Integer.parseInt(JOptionPane.showInputDialog(null, "How many tasks would you like to add?", "EasyKanban", JOptionPane.QUESTION_MESSAGE)));
         } catch (Exception e) {
             HomeScreen homeScreen = new HomeScreen();
             homeScreen.getCommand();
@@ -42,7 +42,18 @@ public class AddTasksScreen extends Screen {
         int command;
         Object[] commands = new Object[]{ADD_TASK_COMMAND, FINISH_COMMAND};
 
-        command = JOptionPane.showOptionDialog(null, "Welcome to EasyKanban\nYou can add " + taskManager.getTasksLimit() + " tasks.", "Welcome", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, commands, commands[0]);
+        String title = "EasyKanban";
+        String message = "Welcome to EasyKanban\nYou can add " + taskManager.getTasksLimit() + " tasks.";
+
+        if (taskManager.getTasks().size() == taskManager.getMaximumTasks()) {
+            message += "\n\n";
+
+            int totalHours = taskManager.returnTotalHours();
+
+            message += "Total Hours: " + totalHours;
+        }
+
+        command = JOptionPane.showOptionDialog(null, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, commands, commands[0]);
 
         switch (command) {
             case 0:

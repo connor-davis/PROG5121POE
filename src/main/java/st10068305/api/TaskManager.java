@@ -21,6 +21,18 @@ public class TaskManager {
         return maximumTasks - tasks.size();
     }
 
+    public int returnTotalHours() {
+        int totalHours = 0;
+
+        for (String id : tasks.keySet()) {
+            Task task = tasks.get(id);
+
+            totalHours += task.getTaskDuration();
+        }
+
+        return totalHours;
+    }
+
     public void addTask(Task task) {
         this.tasks.put(task.getTaskId(), task);
     }

@@ -25,15 +25,17 @@ public class AddTaskScreen extends Screen {
     @Override
     public void prompt() {
         String taskName = promptTaskName();
-        int taskNumber = promptTaskNumber();
+        int taskNumber = taskManager.getTasks().size();
         String taskDescription = promptTaskDescription();
         String developerDetails = promptDeveloperDetails();
         int taskDuration = promptTaskDuration();
-        String taskId = generateTaskId(taskName, taskNumber, developerDetails);
+        String taskId = createTaskID(taskName, taskNumber, developerDetails);
+        String taskStatus = promptTaskStatus();
 
-        Task task = new Task(taskName, taskNumber, taskDescription, developerDetails, taskDuration, taskId);
+        Task task = new Task(taskName, taskNumber, taskDescription, developerDetails, taskDuration, taskId, taskStatus);
 
         taskManager.addTask(task);
+        printTaskDetails(task);
 
         AddTasksScreen addTasksScreen = new AddTasksScreen();
         addTasksScreen.getCommand();
@@ -43,23 +45,60 @@ public class AddTaskScreen extends Screen {
         return JOptionPane.showInputDialog(null, "Please enter the task name", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
     }
 
-    private int promptTaskNumber() {
-        return Integer.parseInt(JOptionPane.showInputDialog(null, "Please enter the task number", "EasyKanban", JOptionPane.QUESTION_MESSAGE));
-    }
-
     private String promptTaskDescription() {
-        return JOptionPane.showInputDialog(null, "Please enter the task description", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+        String taskDescription = JOptionPane.showInputDialog(null, "Please enter the task description", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+
+        if (!checkTaskDescription(taskDescription)) {
+            JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters", "EasyKanban", JOptionPane.WARNING_MESSAGE);
+
+            taskDescription = promptTaskDescription();
+        } else {
+            JOptionPane.showMessageDialog(null, "Task successfully captured", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        return taskDescription;
     }
 
     private String promptDeveloperDetails() {
-        return JOptionPane.showInputDialog(null, "Please enter the developers details", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+        String developerDetails = "";
+
+        developerDetails += JOptionPane.showInputDialog(null, "Please enter the developers first name", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+        developerDetails += " " + JOptionPane.showInputDialog(null, "Please enter the developers last name", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+
+        return developerDetails;
     }
 
     private int promptTaskDuration() {
         return Integer.parseInt(JOptionPane.showInputDialog(null, "The estimated duration of the task in hours.", "EasyKanban", JOptionPane.QUESTION_MESSAGE));
     }
 
-    private String generateTaskId(String taskName, int taskNumber, String developerDetails) {
+    private String promptTaskStatus() {
+        int command;
+        String[] commands = new String[]{"To Do", "Doing", "Done"};
+
+        command = JOptionPane.showOptionDialog(null, "Please choose a status for the task", "EasyKanBan", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, commands, commands[0]);
+
+        switch (command) {
+            case 0:
+                return "To Do";
+            case 1:
+                return "Doing";
+            case 2:
+                return "Done";
+            default:
+                promptTaskStatus();
+
+                break;
+        }
+
+        return null;
+    }
+
+    private boolean checkTaskDescription(String taskDescription) {
+        return taskDescription.length() <= 50;
+    }
+
+    private String createTaskID(String taskName, int taskNumber, String developerDetails) {
         String taskId = "";
 
         taskId += taskName.substring(0, 1).toUpperCase() + ":";
@@ -67,6 +106,20 @@ public class AddTaskScreen extends Screen {
         taskId += developerDetails.substring(developerDetails.length() - 3);
 
         return taskId;
+    }
+
+    private void printTaskDetails(Task task) {
+        String taskDetails = "";
+
+        taskDetails += "Task Name: \t" + task.getTaskName();
+        taskDetails += "\nTask Number: \t" + task.getTaskNumber();
+        taskDetails += "\nTask Description: \t" + task.getTaskDescription();
+        taskDetails += "\nDeveloper Details: \t" + task.getDeveloperDetails();
+        taskDetails += "\nTask Duration: \t" + task.getTaskDuration() + " hours";
+        taskDetails += "\nTask ID: \t" + task.getTaskId();
+        taskDetails += "\nTask Status: \t" + task.getTaskStatus();
+
+        JOptionPane.showMessageDialog(null, taskDetails, "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
