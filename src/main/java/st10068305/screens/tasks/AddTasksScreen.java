@@ -28,7 +28,7 @@ public class AddTasksScreen extends Screen {
     @Override
     public void prompt() {
         try {
-            taskManager.setMaximumTasks(taskManager.getTasks().size() + Integer.parseInt(JOptionPane.showInputDialog(null, "How many tasks would you like to add?", "EasyKanban", JOptionPane.QUESTION_MESSAGE)));
+            taskManager.setMaximumTasks(taskManager.getTasks().size() + Integer.parseInt(JOptionPane.showInputDialog(null, "How many tasks would you like to add?", "EasyKanban", JOptionPane.INFORMATION_MESSAGE)));
         } catch (Exception e) {
             HomeScreen homeScreen = new HomeScreen();
             homeScreen.getCommand();
@@ -63,7 +63,7 @@ public class AddTasksScreen extends Screen {
                 if (taskManager.getTasksLimit() > 0) {
                     addTaskScreen.display();
                 } else {
-                    JOptionPane.showMessageDialog(null, "You have reached the maximum number of tasks for the session.", "EasyKanban", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You have reached the maximum number of tasks for the session.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
                     getCommand();
                 }
 

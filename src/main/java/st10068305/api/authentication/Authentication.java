@@ -30,7 +30,7 @@ public class Authentication {
                     null,
                     Messages.PASSWORD_INCORRECT,
                     "EasyKanban",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             return false;
         }
@@ -54,14 +54,14 @@ public class Authentication {
                     null,
                     userNameCheck.getMessage(),
                     "Registration",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             if (complexityCheck.hasPassed()) {
                 JOptionPane.showMessageDialog(
                         null,
                         complexityCheck.getMessage(),
                         "Registration",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
 
                 return Messages.REGISTERED_SUCCESSFULLY;
             } else {
@@ -69,7 +69,7 @@ public class Authentication {
                         null,
                         complexityCheck.getMessage(),
                         "Registration",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
 
                 return complexityCheck.getMessage();
             }
@@ -78,7 +78,7 @@ public class Authentication {
                     null,
                     userNameCheck.getMessage(),
                     "Registration",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             return userNameCheck.getMessage();
         }

@@ -44,7 +44,7 @@ public class WelcomeScreen extends Screen {
 
                     loginScreen.display();
                 } else {
-                    JOptionPane.showMessageDialog(null, "There are no stored users, please register one.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "There are no stored users, please register one.", "Warning", JOptionPane.INFORMATION_MESSAGE);
 
                     prompt();
                 }

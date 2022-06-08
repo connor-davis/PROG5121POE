@@ -52,14 +52,14 @@ public class AddTaskScreen extends Screen {
                 "Please enter the task name." +
                         "\n\nMust be at least 2 words long.",
                 "EasyKanban",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
         if (taskName.split(" ").length < 2) {
             JOptionPane.showMessageDialog(
                     null,
                     "Please enter a task name of two words at least.",
                     "EasyKanban",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             taskName = promptTaskName();
         }
@@ -72,14 +72,14 @@ public class AddTaskScreen extends Screen {
                 null,
                 "Please enter the task description.",
                 "EasyKanban",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
         if (!Task.checkTaskDescription(taskDescription)) {
             JOptionPane.showMessageDialog(
                     null,
                     "Please enter a task description of less than 50 characters.",
                     "EasyKanban",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             taskDescription = promptTaskDescription();
         } else {
@@ -100,12 +100,12 @@ public class AddTaskScreen extends Screen {
                 null,
                 "Please enter the developers first name.",
                 "EasyKanban",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
         developerDetails += " " + JOptionPane.showInputDialog(
                 null,
                 "Please enter the developers last name.",
                 "EasyKanban",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
         return developerDetails;
     }
@@ -115,7 +115,7 @@ public class AddTaskScreen extends Screen {
                 null,
                 "The estimated duration of the task in hours.",
                 "EasyKanban",
-                JOptionPane.QUESTION_MESSAGE));
+                JOptionPane.INFORMATION_MESSAGE));
     }
 
     private String promptTaskStatus() {
@@ -127,7 +127,7 @@ public class AddTaskScreen extends Screen {
                 "Please choose a status for the task",
                 "EasyKanBan",
                 JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.INFORMATION_MESSAGE,
                 null,
                 commands,
                 commands[0]);

@@ -45,7 +45,7 @@ public class LoginScreen extends Screen {
                     null,
                     Messages.USERNAME_INCORRECT,
                     "Authentication",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             prompt();
         } else {
@@ -57,7 +57,7 @@ public class LoginScreen extends Screen {
         return JOptionPane.showInputDialog(
                 null,
                 "Please enter your username.",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void promptPassword(User user) {
@@ -67,7 +67,7 @@ public class LoginScreen extends Screen {
                 null,
                 "Please enter your password.",
                 "Authentication",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
         if (!Authentication.loginUser(user, password)) {
             promptPassword(user);

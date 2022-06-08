@@ -50,7 +50,7 @@ public class RegisterScreen extends Screen {
                     null,
                     welcomeMessage,
                     "Registration",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             LoginScreen loginScreen = new LoginScreen();
 
@@ -60,7 +60,7 @@ public class RegisterScreen extends Screen {
                     null,
                     registerStatus,
                     "Registration",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             prompt();
         }
@@ -73,7 +73,7 @@ public class RegisterScreen extends Screen {
      * @return String
      */
     private String promptFirstName() {
-        return JOptionPane.showInputDialog(null, "Please enter your first name", "Registration", JOptionPane.QUESTION_MESSAGE);
+        return JOptionPane.showInputDialog(null, "Please enter your first name", "Registration", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -82,7 +82,7 @@ public class RegisterScreen extends Screen {
      * @return String
      */
     private String promptLastName() {
-        return JOptionPane.showInputDialog(null, "Please enter your last name", "Registration", JOptionPane.QUESTION_MESSAGE);
+        return JOptionPane.showInputDialog(null, "Please enter your last name", "Registration", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -101,7 +101,7 @@ public class RegisterScreen extends Screen {
                         "\n\nMust be 5 characters or less." +
                         "\nMust contain an underscore.",
                 "Registration",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
         AuthenticationResponse userNameCheck = Authentication.checkUserName(username);
 
@@ -110,7 +110,7 @@ public class RegisterScreen extends Screen {
                     null,
                     userNameCheck.getMessage(),
                     "Registration",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             username = promptUserName();
         }
@@ -135,7 +135,7 @@ public class RegisterScreen extends Screen {
                         "\nMust contain a number." +
                         "\nMust contain a capital letter.",
                 "Registration",
-                JOptionPane.QUESTION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
 
         AuthenticationResponse complexityCheck = Authentication.checkPasswordComplexity(password);
 
@@ -144,7 +144,7 @@ public class RegisterScreen extends Screen {
                     null,
                     complexityCheck.getMessage(),
                     "Registration",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
 
             password = promptPassword();
         }
