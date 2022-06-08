@@ -41,7 +41,11 @@ public class LoginScreen extends Screen {
           the user to be registered.
          */
         if (user == null) {
-            System.out.println(Messages.USERNAME_INCORRECT);
+            JOptionPane.showMessageDialog(
+                    null,
+                    Messages.USERNAME_INCORRECT,
+                    "Authentication",
+                    JOptionPane.WARNING_MESSAGE);
 
             prompt();
         } else {

@@ -3,6 +3,7 @@ package st10068305.api.authentication;
 import st10068305.api.User;
 import st10068305.util.Messages;
 
+import javax.swing.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +26,11 @@ public class Authentication {
         if (password.equals(user.getPassword())) {
             return true;
         } else {
-            System.out.println(Messages.PASSWORD_INCORRECT);
+            JOptionPane.showMessageDialog(
+                    null,
+                    Messages.PASSWORD_INCORRECT,
+                    "EasyKanban",
+                    JOptionPane.WARNING_MESSAGE);
 
             return false;
         }
@@ -45,19 +50,35 @@ public class Authentication {
         AuthenticationResponse complexityCheck = checkPasswordComplexity(password);
 
         if (userNameCheck.hasPassed()) {
-            System.out.println(userNameCheck.getMessage());
+            JOptionPane.showMessageDialog(
+                    null,
+                    userNameCheck.getMessage(),
+                    "Registration",
+                    JOptionPane.WARNING_MESSAGE);
 
             if (complexityCheck.hasPassed()) {
-                System.out.println(complexityCheck.getMessage());
+                JOptionPane.showMessageDialog(
+                        null,
+                        complexityCheck.getMessage(),
+                        "Registration",
+                        JOptionPane.WARNING_MESSAGE);
 
                 return Messages.REGISTERED_SUCCESSFULLY;
             } else {
-                System.out.println(complexityCheck.getMessage());
+                JOptionPane.showMessageDialog(
+                        null,
+                        complexityCheck.getMessage(),
+                        "Registration",
+                        JOptionPane.WARNING_MESSAGE);
 
                 return complexityCheck.getMessage();
             }
         } else {
-            System.out.println(userNameCheck.getMessage());
+            JOptionPane.showMessageDialog(
+                    null,
+                    userNameCheck.getMessage(),
+                    "Registration",
+                    JOptionPane.WARNING_MESSAGE);
 
             return userNameCheck.getMessage();
         }

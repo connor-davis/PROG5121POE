@@ -46,13 +46,21 @@ public class RegisterScreen extends Screen {
             welcomeMessage = welcomeMessage.replace("<user first name>", user.getFirstName());
             welcomeMessage = welcomeMessage.replace("<user last name>", user.getLastName());
 
-            System.out.println(welcomeMessage);
+            JOptionPane.showMessageDialog(
+                    null,
+                    welcomeMessage,
+                    "Registration",
+                    JOptionPane.WARNING_MESSAGE);
 
             LoginScreen loginScreen = new LoginScreen();
 
             loginScreen.display();
         } else {
-            System.out.println(registerStatus);
+            JOptionPane.showMessageDialog(
+                    null,
+                    registerStatus,
+                    "Registration",
+                    JOptionPane.WARNING_MESSAGE);
 
             prompt();
         }
@@ -98,7 +106,11 @@ public class RegisterScreen extends Screen {
         AuthenticationResponse userNameCheck = Authentication.checkUserName(username);
 
         if (!userNameCheck.hasPassed()) {
-            System.out.println(userNameCheck.getMessage());
+            JOptionPane.showMessageDialog(
+                    null,
+                    userNameCheck.getMessage(),
+                    "Registration",
+                    JOptionPane.WARNING_MESSAGE);
 
             username = promptUserName();
         }
@@ -128,7 +140,11 @@ public class RegisterScreen extends Screen {
         AuthenticationResponse complexityCheck = Authentication.checkPasswordComplexity(password);
 
         if (!complexityCheck.hasPassed()) {
-            System.out.println(complexityCheck.getMessage());
+            JOptionPane.showMessageDialog(
+                    null,
+                    complexityCheck.getMessage(),
+                    "Registration",
+                    JOptionPane.WARNING_MESSAGE);
 
             password = promptPassword();
         }

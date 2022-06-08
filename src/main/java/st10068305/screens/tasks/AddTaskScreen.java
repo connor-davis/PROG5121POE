@@ -30,7 +30,13 @@ public class AddTaskScreen extends Screen {
         int taskDuration = promptTaskDuration();
         String taskStatus = promptTaskStatus();
 
-        Task task = new Task(taskName, taskManager.generateTaskNumber(), taskDescription, developerDetails, taskDuration, taskStatus);
+        Task task = new Task(
+                taskName,
+                taskManager.generateTaskNumber(),
+                taskDescription,
+                developerDetails,
+                taskDuration,
+                taskStatus);
 
         taskManager.addTask(task);
 
@@ -41,10 +47,19 @@ public class AddTaskScreen extends Screen {
     }
 
     private String promptTaskName() {
-        String taskName = JOptionPane.showInputDialog(null, "Please enter the task name", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+        String taskName = JOptionPane.showInputDialog(
+                null,
+                "Please enter the task name." +
+                        "\n\nMust be at least 2 words long.",
+                "EasyKanban",
+                JOptionPane.QUESTION_MESSAGE);
 
         if (taskName.split(" ").length < 2) {
-            JOptionPane.showMessageDialog(null, "Please enter a task name of two words at least.", "EasyKanban", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Please enter a task name of two words at least.",
+                    "EasyKanban",
+                    JOptionPane.WARNING_MESSAGE);
 
             taskName = promptTaskName();
         }
@@ -53,14 +68,26 @@ public class AddTaskScreen extends Screen {
     }
 
     private String promptTaskDescription() {
-        String taskDescription = JOptionPane.showInputDialog(null, "Please enter the task description", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+        String taskDescription = JOptionPane.showInputDialog(
+                null,
+                "Please enter the task description.",
+                "EasyKanban",
+                JOptionPane.QUESTION_MESSAGE);
 
         if (!Task.checkTaskDescription(taskDescription)) {
-            JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters", "EasyKanban", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Please enter a task description of less than 50 characters.",
+                    "EasyKanban",
+                    JOptionPane.WARNING_MESSAGE);
 
             taskDescription = promptTaskDescription();
         } else {
-            JOptionPane.showMessageDialog(null, "Task successfully captured", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Task successfully captured.",
+                    "EasyKanban",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
 
         return taskDescription;
@@ -69,21 +96,41 @@ public class AddTaskScreen extends Screen {
     private String promptDeveloperDetails() {
         String developerDetails = "";
 
-        developerDetails += JOptionPane.showInputDialog(null, "Please enter the developers first name", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
-        developerDetails += " " + JOptionPane.showInputDialog(null, "Please enter the developers last name", "EasyKanban", JOptionPane.QUESTION_MESSAGE);
+        developerDetails += JOptionPane.showInputDialog(
+                null,
+                "Please enter the developers first name.",
+                "EasyKanban",
+                JOptionPane.QUESTION_MESSAGE);
+        developerDetails += " " + JOptionPane.showInputDialog(
+                null,
+                "Please enter the developers last name.",
+                "EasyKanban",
+                JOptionPane.QUESTION_MESSAGE);
 
         return developerDetails;
     }
 
     private int promptTaskDuration() {
-        return Integer.parseInt(JOptionPane.showInputDialog(null, "The estimated duration of the task in hours.", "EasyKanban", JOptionPane.QUESTION_MESSAGE));
+        return Integer.parseInt(JOptionPane.showInputDialog(
+                null,
+                "The estimated duration of the task in hours.",
+                "EasyKanban",
+                JOptionPane.QUESTION_MESSAGE));
     }
 
     private String promptTaskStatus() {
         int command;
         String[] commands = new String[]{"To Do", "Doing", "Done"};
 
-        command = JOptionPane.showOptionDialog(null, "Please choose a status for the task", "EasyKanBan", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, commands, commands[0]);
+        command = JOptionPane.showOptionDialog(
+                null,
+                "Please choose a status for the task",
+                "EasyKanBan",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                commands,
+                commands[0]);
 
         switch (command) {
             case 0:
@@ -112,7 +159,11 @@ public class AddTaskScreen extends Screen {
         taskDetails += "\nTask ID: \t" + task.getTaskId();
         taskDetails += "\nTask Duration: \t" + task.getTaskDuration() + " hours";
 
-        JOptionPane.showMessageDialog(null, taskDetails, "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(
+                null,
+                taskDetails,
+                "EasyKanban",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
