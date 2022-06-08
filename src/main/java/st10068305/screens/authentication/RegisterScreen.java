@@ -7,13 +7,8 @@ import st10068305.api.authentication.Authentication;
 import st10068305.api.authentication.AuthenticationResponse;
 import st10068305.screens.Screen;
 import st10068305.util.Messages;
-import st10068305.util.TextToAscii;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.util.Scanner;
-
-import static java.lang.System.in;
 
 public class RegisterScreen extends Screen {
     private final Main main = Main.getInstance();
@@ -92,7 +87,13 @@ public class RegisterScreen extends Screen {
     private String promptUserName() {
         String username;
 
-        username = JOptionPane.showInputDialog(null, "Please enter your username", "Registration", JOptionPane.QUESTION_MESSAGE);
+        username = JOptionPane.showInputDialog(
+                null,
+                "Please enter your username" +
+                        "\n\nMust be 5 characters or less." +
+                        "\nMust contain an underscore.",
+                "Registration",
+                JOptionPane.QUESTION_MESSAGE);
 
         AuthenticationResponse userNameCheck = Authentication.checkUserName(username);
 
@@ -114,7 +115,15 @@ public class RegisterScreen extends Screen {
     private String promptPassword() {
         String password;
 
-        password = JOptionPane.showInputDialog(null, "Please enter your password", "Registration", JOptionPane.QUESTION_MESSAGE);
+        password = JOptionPane.showInputDialog(
+                null,
+                "Please enter your password" +
+                        "\n\nMust be at least 8 characters." +
+                        "\nMust contain special character, e.g. @" +
+                        "\nMust contain a number." +
+                        "\nMust contain a capital letter.",
+                "Registration",
+                JOptionPane.QUESTION_MESSAGE);
 
         AuthenticationResponse complexityCheck = Authentication.checkPasswordComplexity(password);
 

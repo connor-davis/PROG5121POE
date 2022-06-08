@@ -52,10 +52,7 @@ public class LoginScreen extends Screen {
     private String promptUserName() {
         return JOptionPane.showInputDialog(
                 null,
-                "Please enter your username." +
-                        "\n\nMust be 5 characters or less." +
-                        "\nMust contain an underscore.",
-                "Authentication",
+                "Please enter your username.",
                 JOptionPane.QUESTION_MESSAGE);
     }
 
@@ -64,11 +61,7 @@ public class LoginScreen extends Screen {
 
         password = JOptionPane.showInputDialog(
                 null,
-                "Please enter your password." +
-                        "\n\nMust be at least 8 characters." +
-                        "\nMust contain special character, e.g. @" +
-                        "\nMust contain a number." +
-                        "\nMust contain a capital letter.",
+                "Please enter your password.",
                 "Authentication",
                 JOptionPane.QUESTION_MESSAGE);
 
