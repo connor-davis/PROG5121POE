@@ -7,10 +7,8 @@ import st10068305.api.authentication.Authentication;
 import st10068305.screens.HomeScreen;
 import st10068305.screens.Screen;
 import st10068305.util.Messages;
-import st10068305.util.TextToAscii;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public class LoginScreen extends Screen {
     private final Main main = Main.getInstance();
@@ -52,13 +50,27 @@ public class LoginScreen extends Screen {
     }
 
     private String promptUserName() {
-        return JOptionPane.showInputDialog(null, "Please enter your username.", "Authentication", JOptionPane.QUESTION_MESSAGE);
+        return JOptionPane.showInputDialog(
+                null,
+                "Please enter your username." +
+                        "\n\nMust be 5 characters or less." +
+                        "\nMust contain an underscore.",
+                "Authentication",
+                JOptionPane.QUESTION_MESSAGE);
     }
 
     private void promptPassword(User user) {
         String password;
 
-        password = JOptionPane.showInputDialog(null, "Please enter your password.", "Authentication", JOptionPane.QUESTION_MESSAGE);
+        password = JOptionPane.showInputDialog(
+                null,
+                "Please enter your password." +
+                        "\n\nMust be at least 8 characters." +
+                        "\nMust contain special character, e.g. @" +
+                        "\nMust contain a number." +
+                        "\nMust contain a capital letter.",
+                "Authentication",
+                JOptionPane.QUESTION_MESSAGE);
 
         if (!Authentication.loginUser(user, password)) {
             promptPassword(user);
