@@ -8,7 +8,7 @@ import st10068305.util.Messages;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class AuthenticationTest {
+class AuthenticationTests {
     private static final UserManager userManager = new UserManager();
     private static User testUser;
 
