@@ -1,31 +1,32 @@
 package st10068305.api;
 
-import st10068305.Main;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReportManager {
-    private static final Main main = Main.getInstance();
-    private static final TaskManager taskManager = main.getTaskManager();
+    private TaskManager taskManager;
 
-    public static String displayByStatusDoneMessage() {
+    public ReportManager(TaskManager taskManager) {
+        this.taskManager = taskManager;
+    }
+
+    public String displayByStatusDoneMessage() {
         ArrayList<String> tasksDone = new ArrayList<>();
 
         taskManager.getTasks().forEach((String taskId, Task task) -> {
             if (Objects.equals(task.getTaskStatus(), "Done"))
                 tasksDone.add(
-                        "1." +
-                                task.getDeveloperDetails() + " - " +
-                                task.getTaskName() + " - " +
+                        "1. " +
+                                task.getDeveloperDetails() + ", " +
+                                task.getTaskName() + ", " +
                                 task.getTaskDuration() + " hours");
         });
 
         return String.join("\n", tasksDone);
     }
 
-    public static String displayDeveloperAndDurationOfLongestDuration() {
+    public String displayDeveloperAndDurationOfLongestDuration() {
         ArrayList<Task> tasksList = new ArrayList<>();
 
         for (String taskId : taskManager.getTasks().keySet()) {
@@ -45,38 +46,38 @@ public class ReportManager {
 
         Task greatestDuration = tasksList.get(0);
 
-        return greatestDuration.getDeveloperDetails() + " - " + greatestDuration.getTaskDuration() + " hours.";
+        return greatestDuration.getDeveloperDetails() + ", " + greatestDuration.getTaskDuration();
     }
 
-    public static String searchByTaskName(String taskName) {
+    public String searchByTaskName(String taskName) {
         Task taskFound = null;
 
         for (String taskId : taskManager.getTasks().keySet()) {
             Task task = taskManager.getTasks().get(taskId);
 
-            taskFound = task;
+            if (Objects.equals(task.getTaskName(), taskName)) taskFound = task;
         }
 
         if (taskFound != null)
-            return taskFound.getTaskName() + " - " + taskFound.getDeveloperDetails() + " - " + taskFound.getTaskStatus();
+            return taskFound.getDeveloperDetails() + ", " + taskFound.getTaskName() + ", " + taskFound.getTaskStatus();
         return "Task not found";
     }
 
-    public static String searchByDeveloper(String developer) {
+    public String searchByDeveloper(String developer) {
         ArrayList<String> tasksByDeveloper = new ArrayList<>();
 
         taskManager.getTasks().forEach((String taskId, Task task) -> {
             if (task.getDeveloperDetails().contains(developer))
                 tasksByDeveloper.add(
-                        "1." +
-                                task.getTaskName() + " - " +
+                        "1. " +
+                                task.getTaskName() + ", " +
                                 task.getTaskStatus());
         });
 
         return String.join("\n", tasksByDeveloper);
     }
 
-    public static void deleteByTaskName(String taskName) {
+    public String deleteByTaskName(String taskName, boolean debug) {
         Task taskFound = null;
 
         for (String taskId : taskManager.getTasks().keySet()) {
@@ -86,15 +87,22 @@ public class ReportManager {
                 taskFound = task;
         }
 
-        if (taskFound == null)
-            JOptionPane.showMessageDialog(null, "Task not found.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
-        else {
+        if (taskFound == null) {
+            JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" not found.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+
+            return "Entry \"" + taskName + "\" not found.";
+        } else {
             taskManager.removeTask(taskFound.getTaskId());
 
-            if (!taskManager.getTasks().containsKey(taskFound.getTaskId()))
-                JOptionPane.showMessageDialog(null, "Task deleted.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
-            else
-                JOptionPane.showMessageDialog(null, "Unable to delete task.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+            if (!taskManager.getTasks().containsKey(taskFound.getTaskId())) {
+                if (!debug) JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" successfully deleted.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+
+                return "Entry \"" + taskName + "\" successfully deleted.";
+            } else {
+                if (!debug) JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" failed to delete.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+
+                return "Entry \"" + taskName + "\" failed to delete.";
+            }
         }
     }
 }

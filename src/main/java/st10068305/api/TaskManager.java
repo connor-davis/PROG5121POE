@@ -1,5 +1,6 @@
 package st10068305.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskManager {
@@ -38,6 +39,35 @@ public class TaskManager {
 
     public HashMap<String, Task> getTasks() {
         return this.tasks;
+    }
+
+    public String[] getDevelopers() {
+        ArrayList<Task> tasksList = new ArrayList<>();
+
+        for (Task task : tasks.values()) {
+            tasksList.add(task);
+        }
+
+        tasksList.sort((Task a, Task b) -> {
+            int taskNumberA = Integer.parseInt(a.getTaskId().split(":")[1]);
+            int taskNumberB = Integer.parseInt(b.getTaskId().split(":")[1]);
+
+            if (taskNumberA > taskNumberB) return 1;
+            if (taskNumberA < taskNumberB) return -1;
+
+            return 0;
+        });
+
+        String[] developers = new String[tasksList.size()];
+        int currentIndex = 0;
+
+        for (Task task : tasksList) {
+            developers[currentIndex] = task.getDeveloperDetails();
+
+            currentIndex++;
+        }
+
+        return developers;
     }
 
     public int generateTaskNumber() {
