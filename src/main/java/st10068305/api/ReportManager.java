@@ -13,15 +13,19 @@ public class ReportManager {
 
     public String displayByStatusDoneMessage() {
         ArrayList<String> tasksDone = new ArrayList<>();
+        int currentIndex = 0;
 
-        taskManager.getTasks().forEach((String taskId, Task task) -> {
+        for (String taskId : taskManager.getTasks().keySet()) {
+            Task task = taskManager.getTasks().get(taskId);
+
             if (Objects.equals(task.getTaskStatus(), "Done"))
-                tasksDone.add(
-                        "1. " +
-                                task.getDeveloperDetails() + ", " +
-                                task.getTaskName() + ", " +
-                                task.getTaskDuration() + " hours");
-        });
+                currentIndex++;
+            tasksDone.add(
+                    currentIndex + ". " +
+                            task.getDeveloperDetails() + ", " +
+                            task.getTaskName() + ", " +
+                            task.getTaskDuration() + " hours");
+        }
 
         return String.join("\n", tasksDone);
     }
@@ -65,14 +69,20 @@ public class ReportManager {
 
     public String searchByDeveloper(String developer) {
         ArrayList<String> tasksByDeveloper = new ArrayList<>();
+        int currentIndex = 0;
 
-        taskManager.getTasks().forEach((String taskId, Task task) -> {
-            if (task.getDeveloperDetails().contains(developer))
+        for (String taskId : taskManager.getTasks().keySet()) {
+            Task task = taskManager.getTasks().get(taskId);
+
+            if (task.getDeveloperDetails().contains(developer)) {
+                currentIndex++;
+
                 tasksByDeveloper.add(
-                        "1. " +
+                        currentIndex + ". " +
                                 task.getTaskName() + ", " +
                                 task.getTaskStatus());
-        });
+            }
+        }
 
         return String.join("\n", tasksByDeveloper);
     }
@@ -95,11 +105,13 @@ public class ReportManager {
             taskManager.removeTask(taskFound.getTaskId());
 
             if (!taskManager.getTasks().containsKey(taskFound.getTaskId())) {
-                if (!debug) JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" successfully deleted.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+                if (!debug)
+                    JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" successfully deleted.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
 
                 return "Entry \"" + taskName + "\" successfully deleted.";
             } else {
-                if (!debug) JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" failed to delete.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+                if (!debug)
+                    JOptionPane.showMessageDialog(null, "Entry \"" + taskName + "\" failed to delete.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
 
                 return "Entry \"" + taskName + "\" failed to delete.";
             }
