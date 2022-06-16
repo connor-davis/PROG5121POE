@@ -18,13 +18,14 @@ public class ReportManager {
         for (String taskId : taskManager.getTasks().keySet()) {
             Task task = taskManager.getTasks().get(taskId);
 
-            if (Objects.equals(task.getTaskStatus(), "Done"))
+            if (Objects.equals(task.getTaskStatus(), "Done")) {
                 currentIndex++;
-            tasksDone.add(
-                    currentIndex + ". " +
-                            task.getDeveloperDetails() + ", " +
-                            task.getTaskName() + ", " +
-                            task.getTaskDuration() + " hours");
+                tasksDone.add(
+                        currentIndex + ". " +
+                                task.getDeveloperDetails() + ", " +
+                                task.getTaskName() + ", " +
+                                task.getTaskDuration() + " hours");
+            }
         }
 
         return String.join("\n", tasksDone);
