@@ -69,6 +69,9 @@ public class UserSLAPI {
         Yaml usersYaml = new Yaml();
 
         HashMap<String, HashMap<String, Object>> allHashMap = usersYaml.load(usersInputStream);
+
+        if (allHashMap == null) allHashMap = new HashMap<>();
+
         HashMap<String, User> usersHashMap = new HashMap<>();
 
         for (String key : allHashMap.keySet()) {
