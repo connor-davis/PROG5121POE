@@ -34,7 +34,7 @@ public class RegisterScreen extends Screen {
         username = promptUserName();
         password = promptPassword();
 
-        String registerStatus = Authentication.registerUser(username, password);
+        String registerStatus = Authentication.registerUser(username, password, false);
 
         if (registerStatus.equals(Messages.REGISTERED_SUCCESSFULLY)) {
             User user = new User(firstName, lastName, username, password);

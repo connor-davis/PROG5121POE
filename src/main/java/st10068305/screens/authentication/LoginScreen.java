@@ -70,7 +70,7 @@ public class LoginScreen extends Screen {
                 "Authentication",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        if (!Authentication.loginUser(user, password)) {
+        if (!Authentication.loginUser(user, password, false)) {
             promptPassword(user);
         } else {
             userManager.setCurrentUser(user);

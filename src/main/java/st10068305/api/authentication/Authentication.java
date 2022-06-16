@@ -17,7 +17,7 @@ public class Authentication {
      * @param password The given password.
      * @return boolean
      */
-    public static boolean loginUser(User user, String password) {
+    public static boolean loginUser(User user, String password, boolean debug) {
         /*
           Here we check that the entered password matches the
           stored users' password. If not we ask the user for
@@ -26,7 +26,7 @@ public class Authentication {
         if (password.equals(user.getPassword())) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(
+            if (!debug) JOptionPane.showMessageDialog(
                     null,
                     Messages.PASSWORD_INCORRECT,
                     "EasyKanban",
@@ -45,19 +45,19 @@ public class Authentication {
      * @param password The given password.
      * @return String
      */
-    public static String registerUser(String userName, String password) {
+    public static String registerUser(String userName, String password, boolean debug) {
         AuthenticationResponse userNameCheck = checkUserName(userName);
         AuthenticationResponse complexityCheck = checkPasswordComplexity(password);
 
         if (userNameCheck.hasPassed()) {
-            JOptionPane.showMessageDialog(
+            if (!debug) JOptionPane.showMessageDialog(
                     null,
                     userNameCheck.getMessage(),
                     "Registration",
                     JOptionPane.INFORMATION_MESSAGE);
 
             if (complexityCheck.hasPassed()) {
-                JOptionPane.showMessageDialog(
+                if (!debug) JOptionPane.showMessageDialog(
                         null,
                         complexityCheck.getMessage(),
                         "Registration",
@@ -65,7 +65,7 @@ public class Authentication {
 
                 return Messages.REGISTERED_SUCCESSFULLY;
             } else {
-                JOptionPane.showMessageDialog(
+                if (!debug) JOptionPane.showMessageDialog(
                         null,
                         complexityCheck.getMessage(),
                         "Registration",
@@ -74,7 +74,7 @@ public class Authentication {
                 return complexityCheck.getMessage();
             }
         } else {
-            JOptionPane.showMessageDialog(
+            if (!debug) JOptionPane.showMessageDialog(
                     null,
                     userNameCheck.getMessage(),
                     "Registration",
