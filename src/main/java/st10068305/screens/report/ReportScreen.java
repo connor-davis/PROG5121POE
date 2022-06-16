@@ -2,7 +2,6 @@ package st10068305.screens.report;
 
 import st10068305.Main;
 import st10068305.api.ReportManager;
-import st10068305.api.Task;
 import st10068305.api.TaskManager;
 import st10068305.screens.HomeScreen;
 import st10068305.screens.Screen;
@@ -16,7 +15,13 @@ public class ReportScreen extends Screen {
 
     @Override
     public void display() {
-        getCommand();
+        if (taskManager.getTasks().size() > 0) getCommand();
+        else {
+            JOptionPane.showMessageDialog(null, "You have no tasks, please add tasks.", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+
+            HomeScreen homeScreen = new HomeScreen();
+            homeScreen.display();
+        }
     }
 
     @Override

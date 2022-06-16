@@ -76,6 +76,9 @@ public class TaskSLAPI {
         Yaml tasksYaml = new Yaml();
 
         HashMap<String, HashMap<String, Object>> allHashMap = tasksYaml.load(tasksInputStream);
+
+        if (allHashMap == null) allHashMap = new HashMap<>();
+
         HashMap<String, Task> tasksHashMap = new HashMap<>();
 
         for (String key : allHashMap.keySet()) {
