@@ -12,6 +12,7 @@ import javax.swing.*;
 public class ReportScreen extends Screen {
     private final Main main = Main.getInstance();
     private final TaskManager taskManager = main.getTaskManager();
+    private final ReportManager reportManager = new ReportManager(taskManager);
 
     @Override
     public void display() {
@@ -45,19 +46,19 @@ public class ReportScreen extends Screen {
 
             switch (command) {
                 case 1:
-                    JOptionPane.showMessageDialog(null, ReportManager.displayByStatusDoneMessage(), "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, reportManager.displayByStatusDoneMessage(), "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
                     display();
 
                     break;
 
                 case 2:
-                    JOptionPane.showMessageDialog(null, ReportManager.displayDeveloperAndDurationOfLongestDuration(), "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, reportManager.displayDeveloperAndDurationOfLongestDuration(), "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
                     display();
 
                     break;
 
                 case 3:
-                    JOptionPane.showMessageDialog(null, ReportManager.searchByTaskName(JOptionPane.showInputDialog(
+                    JOptionPane.showMessageDialog(null, reportManager.searchByTaskName(JOptionPane.showInputDialog(
                             null,
                             "Task Name?",
                             "EasyKanban",
@@ -67,7 +68,7 @@ public class ReportScreen extends Screen {
                     break;
 
                 case 4:
-                    JOptionPane.showMessageDialog(null, ReportManager.searchByDeveloper(JOptionPane.showInputDialog(
+                    JOptionPane.showMessageDialog(null, reportManager.searchByDeveloper(JOptionPane.showInputDialog(
                             null,
                             "First Name or Last Name of Developer?",
                             "EasyKanban",
@@ -82,7 +83,7 @@ public class ReportScreen extends Screen {
                             "Task Name?",
                             "EasyKanban",
                             JOptionPane.INFORMATION_MESSAGE);
-                    ReportManager.deleteByTaskName(taskName);
+                    reportManager.deleteByTaskName(taskName, false);
                     display();
 
                     break;

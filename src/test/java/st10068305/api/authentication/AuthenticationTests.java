@@ -44,7 +44,7 @@ class AuthenticationTests {
     @Order(3)
     @DisplayName("Test registerUser()")
     void registerUser() {
-        String registerStatus = Authentication.registerUser("cdav_", "@Cp2606#$%");
+        String registerStatus = Authentication.registerUser("cdav_", "@Cp2606#$%", true);
 
         if (registerStatus.equals(Messages.REGISTERED_SUCCESSFULLY)) {
             testUser = new User("Connor", "Davis", "cdav", "@Cp2606#$%");
@@ -59,7 +59,7 @@ class AuthenticationTests {
     @Order(4)
     @DisplayName("Test loginUser()")
     void loginUser() {
-        assertTrue(Authentication.loginUser(testUser, "@Cp2606#$%"));
-        assertFalse(Authentication.loginUser(testUser, "Connor100203"));
+        assertTrue(Authentication.loginUser(testUser, "@Cp2606#$%", true));
+        assertFalse(Authentication.loginUser(testUser, "Connor100203", true));
     }
 }
