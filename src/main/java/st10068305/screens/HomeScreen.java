@@ -2,12 +2,11 @@ package st10068305.screens;
 
 import st10068305.Main;
 import st10068305.api.UserManager;
+import st10068305.screens.report.ReportScreen;
 import st10068305.screens.tasks.AddTasksScreen;
 import st10068305.util.Messages;
-import st10068305.util.Table;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 import static st10068305.util.Commands.*;
 
@@ -52,9 +51,8 @@ public class HomeScreen extends Screen {
 
                 break;
             case 1:
-                JOptionPane.showMessageDialog(null, "Coming Soon", "EasyKanban", JOptionPane.INFORMATION_MESSAGE);
-
-                getCommand();
+                ReportScreen reportScreen = new ReportScreen();
+                reportScreen.display();
 
                 break;
             default:

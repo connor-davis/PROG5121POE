@@ -57,6 +57,7 @@ public class LoginScreen extends Screen {
         return JOptionPane.showInputDialog(
                 null,
                 "Please enter your username.",
+                "Authentication",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 

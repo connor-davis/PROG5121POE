@@ -17,6 +17,7 @@ dependencies {
 
     implementation 'com.github.tomas-langer:chalk:1.0.2'
     implementation 'org.yaml:snakeyaml:1.30'
+    implementation 'de.vandermeer:asciitable:0.3.2'
 }
 
 jar {

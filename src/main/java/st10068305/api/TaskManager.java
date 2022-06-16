@@ -51,4 +51,8 @@ public class TaskManager {
     public void setTasks(HashMap<String, Task> tasks) {
         this.tasks = tasks;
     }
+
+    public void removeTask(String taskId) {
+        tasks.remove(taskId);
+    }
 }
